@@ -56,15 +56,21 @@ margin-bottom: 30px;
   font-size: 16px;
   cursor:pointer;
   transition: all 0.3s ease-in-out;
+  font-weight:bold;
+
 }
 
 .joinBtn{
 background: #4aee88;
 width: 100px;
+font-weight:bold;
+
 
 margin-left:auto;
-
-
+}
+.joinBtn:hover,
+.leaveBtn:hover {
+    background: #2b824c;
 }
 .createInfo{
   margin: 0 auto;  
@@ -84,4 +90,63 @@ margin-left:auto;
 footer a:hover {
   color: #368654;
   border-color: #368654;
+}
+
+.mainWrap {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  height:100vh;
+}
+
+.aside {
+  background: #1c1e29;
+  padding: 16px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+.asideInner {
+  flex: 1;
+}
+
+.clientsList {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.client {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-weight: bold;
+}
+.userName {
+  margin-top: 10px;
+}
+
+.logo {
+  border-bottom: 1px solid #424242;
+  padding-bottom: 10px;
+}
+
+.logoImage {
+  height: 60px;
+}
+
+.leaveBtn {
+  width: 100%;
+  margin-top: 20px;
+  background: #4aed88;
+}
+
+.CodeMirror {
+   
+min-height: calc(100vh -20px);
+font-size:20px;
+line-height: 1.6;
+padding-top:20px;
+
+
 }
