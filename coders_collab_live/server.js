@@ -16,7 +16,7 @@ app.use((req, res, next) => {
 const userSocketMap = {};
 function getAllConnectedClients(roomId) {
     // Map
-    return Array.from(io.sockets.adapter.rooms.get(roomId) || []).map(
+    return Array.from(io.sockets.adapter.rooms.get(roomId) || [ ]).map(
         (socketId) => {
             return {
                 socketId,
@@ -39,8 +39,35 @@ io.on('connection', (socket) => {
                 username,
                 socketId: socket.id,
             });
+        
+        // console.log(username);
+        // console.log(roomId);
+
         });
     });
+
+
+
+
+socket.on('disconnecting', () =>{
+     const rooms=[...socket.rooms]
+rooms.forEach((roomId)=> {
+       socket.in(roomId).emit(ACTIONS.DISCONNECTED,{
+
+socketId: socket.id,
+username:userSocketMap[socket.id],
+
+
+       });
+
+
+
+});
+
+delete userSocketMap[socket.id];
+socket.leave();
+});
+
 });
 
 

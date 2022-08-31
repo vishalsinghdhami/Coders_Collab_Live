@@ -21,9 +21,14 @@ const EditorPage = (   ) => {
   const reactNavigator = useNavigate();
  const [clients, setClients] = useState([]);
 
+
+
+
   useEffect(()=>{
       const init =async()=>{
         
+setClients([]);
+
         socketRef.current = await initSocket();
             socketRef.current.on('connect_error', (err) => handleErrors(err));
             socketRef.current.on('connect_failed', (err) => handleErrors(err));
@@ -40,6 +45,7 @@ const EditorPage = (   ) => {
             username: location.state.username,
             
         });
+        //listening for joined event
         socketRef.current.on(
           ACTIONS.JOINED,
           ({ clients, username, socketId }) => {
@@ -55,8 +61,17 @@ const EditorPage = (   ) => {
           }
       );
 
+//listening for disconnecting
 
+socketRef.current.on(ACTIONS.DISCONNECTED,({socketId,username})=>{
+toast.success(`${username} left the room.`);
+     setClients((prev)=>{
+      return prev.filter(client =>client.socketId!==socketId
+        );
+     }); 
+}
 
+);
 
 
 
@@ -65,7 +80,17 @@ const EditorPage = (   ) => {
 
 
       };
-     init();       
+     init();  
+     
+     return()=>{
+      socketRef.current.disconnect();
+      socketRef.current.off(ACTIONS.JOINED);
+      socketRef.current.off(ACTIONS.DISCONNECTED);
+
+
+     }
+
+
   },[]);
 
 
@@ -77,8 +102,6 @@ const EditorPage = (   ) => {
 
   // ]);
 
-
-
 //   function leaveRoom() {
 //     reactNavigator('/');
 // }
@@ -86,8 +109,6 @@ const EditorPage = (   ) => {
 if (!location.state) {
     return <Navigate to="/" />;
 }
-
-
 
 
   return (

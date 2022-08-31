@@ -50,7 +50,7 @@ const Home = () => {
                         placeholder="ROOM ID"
                         onChange={(e) => setRoomId(e.target.value)}
                         value={roomId}
-                        onKeyUp={handleInputEnter}
+                       onKeyUp={handleInputEnter}
                     />
                     <input
                         type="text"
@@ -58,7 +58,7 @@ const Home = () => {
                         placeholder="USERNAME"
                         onChange={(e) => setUsername(e.target.value)}
                         value={username}
-                        onKeyUp={handleInputEnter}
+                      onKeyUp={handleInputEnter}
                     />
                     <button className="btn joinBtn" onClick={joinRoom}>
                         Join
