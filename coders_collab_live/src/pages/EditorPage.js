@@ -27,7 +27,7 @@ const EditorPage = (   ) => {
   useEffect(()=>{
       const init =async()=>{
         
-setClients([]);
+//setClients([]);
 
         socketRef.current = await initSocket();
             socketRef.current.on('connect_error', (err) => handleErrors(err));
@@ -88,7 +88,7 @@ toast.success(`${username} left the room.`);
       socketRef.current.off(ACTIONS.DISCONNECTED);
 
 
-     }
+     };
 
 
   },[]);
@@ -102,9 +102,32 @@ toast.success(`${username} left the room.`);
 
   // ]);
 
-//   function leaveRoom() {
-//     reactNavigator('/');
-// }
+
+
+async function copyRoomId(){
+
+  try{
+await navigator.clipboard.writeText(roomId);
+toast.success('Room ID has been copied to your clipboard')
+  }
+catch(err){
+toast.error('Could not copied the Room ID');
+console.error(err);
+
+}
+}
+
+function leaveRoom()
+{ console.log("hiiiiiii");
+     reactNavigator('/');
+}
+
+
+
+
+
+
+
 
 if (!location.state) {
     return <Navigate to="/" />;
@@ -125,11 +148,13 @@ if (!location.state) {
           ))}
         </div>
          </div>
-        <button className="btn copyBtn ">Copy Room ID</button>
-        <button className="btn leaveBtn">Leave</button>
+        <button className="btn copyBtn"   onClick={copyRoomId} >Copy Room ID</button>
+        <div><button className="btn leaveBtn"  onClick={leaveRoom} >Leave</button></div>
       </div>
       <div className="editorWrap">
-        <Editor />
+        <Editor socketRef={socketRef} roomId={roomId} onCodeChange={(code) => {
+                        codeRef.current = code;
+                    }}/>
       </div>
     </div>
   );
