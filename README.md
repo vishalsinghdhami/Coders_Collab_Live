@@ -9,7 +9,9 @@ BACKEND SERVER -> https://codecollabbackend-production.up.railway.app/
 
 
 
-https://user-images.githubusercontent.com/83884792/207404257-5d3e4b02-ea64-465e-b799-d8ca2fb863ce.mp4
+https://user-images.githubusercontent.com/83884792/207404955-da8b842e-4323-40f0-b22a-13d16ba18b2c.mp4
+
+
 ![GIF2](https://user-images.githubusercontent.com/83884792/207398537-f0eac4a0-7818-431f-857d-df912985cdf9.gif)
 
 
