@@ -97,7 +97,7 @@ const Editor = ({ socketRef, roomId, onCodeChange }) => {
     url: 'https://codex7.p.rapidapi.com/',
     headers: {
       'content-type': 'application/x-www-form-urlencoded',
-      'X-RapidAPI-Key': '05b1d046b9msha4d8eee41bc93fbp145c80jsnd6e06103af69',
+      'X-RapidAPI-Key': '05b1d046eee41bc3fbp145c80jsnd6e06103af69',
       'X-RapidAPI-Host': 'codex7.p.rapidapi.com'
     },
     data: encodedParams,
