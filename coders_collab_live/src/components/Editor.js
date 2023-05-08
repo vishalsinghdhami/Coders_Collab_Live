@@ -64,15 +64,24 @@ const Editor = ({ socketRef, roomId, onCodeChange }) => {
   let oldCode=''
   
    // State variable to set users input
-   const [userInput, setUserInput] = useState("");
+   const [userInput, setUserInput] = useState();
  
    // State variable to set users output
    const [userOutput, setUserOutput] = useState("");
    const [userError, setUserError] = useState("");
-
+   const [userLang,setUserLang]=useState("js")
+  //  const setLang=(lng)=>{
+  //   console.log(lng)
+  //      encodedParams.set('language', lng);
+  //  }
+   
   let compileBtn =()=>{
+    setUserOutput("");
+    setUserError("");
     oldCode=editorRef.current.getValue()
-    console.log(oldCode)
+    console.log(userInput)
+    encodedParams.set('language', userLang);
+    encodedParams.set('input',userInput);
     encodedParams.set('code', oldCode);
     compiledDataReqRes();
    }
@@ -87,18 +96,13 @@ const Editor = ({ socketRef, roomId, onCodeChange }) => {
 
   const encodedParams = new URLSearchParams();
   
-  const setUserLang=(lng)=>{
-   console.log(lng)
-      encodedParams.set('language', lng);
-  }
-  
   const options = {
     method: 'POST',
     url: 'https://codex7.p.rapidapi.com/',
     headers: {
       'content-type': 'application/x-www-form-urlencoded',
-      'X-RapidAPI-Key': '05b1d046eee41bc3fbp145c80jsnd6e06103af69',
-      'X-RapidAPI-Host': 'codex7.p.rapidapi.com'
+    'X-RapidAPI-Key': '05b1d046b9msha4d8eee41bc93fbp145c80jsnd6e06103af69',
+    'X-RapidAPI-Host': 'codex7.p.rapidapi.com'
     },
     data: encodedParams,
   };
@@ -115,6 +119,10 @@ const Editor = ({ socketRef, roomId, onCodeChange }) => {
       
   }
   }
+const setInput=(e)=>{
+  console.log(e)
+setUserInput(e);
+}
 const clearOutput=()=>{
     setUserOutput('');
 }
@@ -129,7 +137,9 @@ const clearError=()=>{
         <div className="lang">
           <Select
             options={languages} 
+            defaultValue={languages[0]}
             onChange={(e) => setUserLang(e.value)}
+            
           />
         </div>
         <button className="compBtn" onClick={compileBtn}>Compile</button>
@@ -140,8 +150,8 @@ const clearError=()=>{
           <h4>Input:</h4>
           <div className="input-box">
             <textarea id="code-inp" 
-            // onChange=
-            //   {(e) => setUserInput(e.target.value)}
+            onChange=
+              {(e) => setUserInput(e.target.value)}
             >
             </textarea>
           </div>
